@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, user, location, ... }:
+{ lib, inputs, nixpkgs, user, location, nixos-hardware, ... }:
 
 let
   system = "x86_64-linux";                             	    # System architecture
@@ -22,7 +22,7 @@ in
 
   p14s = lib.nixosSystem {                                    
     inherit system;
-    specialArgs = { inherit inputs user; };
+    specialArgs = { inherit inputs user nixos-hardware; };
     modules = [
       ./p14s
       ./configuration.nix

@@ -7,7 +7,7 @@
       nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     };
 
-  outputs = inputs @ { self, nixpkgs, ... }:  
+  outputs = inputs @ { self, nixpkgs, nixos-hardware, ... }:  
     let                                                                     
       user = "dev";
       location = "$HOME/.setup";
@@ -16,7 +16,7 @@
       nixosConfigurations = (                                               # NixOS configurations
         import ./hosts {                                                    # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs user location;                
+          inherit inputs nixpkgs user location nixos-hardware;                
         }
       );
 

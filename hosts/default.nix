@@ -19,4 +19,13 @@ in
       ./configuration.nix
     ];
   };
+
+  p14s = lib.nixosSystem {                                    
+    inherit system;
+    specialArgs = { inherit inputs user; };
+    modules = [
+      ./p14s
+      ./configuration.nix
+    ];
+  };
 }

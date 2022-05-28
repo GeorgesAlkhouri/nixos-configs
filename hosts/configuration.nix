@@ -5,32 +5,41 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+   
+  networking.hostName = "nixos"; # Define your hostname.
   networking.useDHCP = false;
-  networking.interfaces.enp0s3.useDHCP = true;
-  services.xserver.enable = true;
+  networking.interfaces.enp5s0.useDHCP = true;
+  networking.networkmanager.enable = true;
 
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {                 # Extra locale settings that need to be overwritten
+      LC_TIME = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+    };
+  };
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  
-  system.stateVersion = "21.11"; # Did you read the comment?
-  
-  users.mutableUsers = false;
   users.users.${user} = {       
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    password = "test1234";
   };
   security.sudo.wheelNeedsPassword = false;
 
-  nix = {
+  nix = {                                   # Nix Package Manager settings
+    autoOptimiseStore = true;           # Optimise syslinks
+    gc = {                                  # Automatic garbage collection
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
     package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
+    registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-   };
-
-
+  };
+  nixpkgs.config.allowUnfree = true; 
+  system.stateVersion = "22.05";
 }

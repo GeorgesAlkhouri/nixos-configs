@@ -11,20 +11,21 @@ let
   lib = nixpkgs.lib;
 in
 {
-  vm = lib.nixosSystem {                                    # VM profile
-    inherit system;
-    specialArgs = { inherit inputs user location; };
-    modules = [
-      ./vm
-      ./configuration.nix
-    ];
-  };
 
   p14s = lib.nixosSystem {                                    
     inherit system;
     specialArgs = { inherit inputs user nixos-hardware; };
     modules = [
       ./p14s
+      ./configuration.nix
+    ];
+  };
+
+  vm = lib.nixosSystem {                                    # VM profile
+    inherit system;
+    specialArgs = { inherit inputs user location; };
+    modules = [
+      ./vm
       ./configuration.nix
     ];
   };

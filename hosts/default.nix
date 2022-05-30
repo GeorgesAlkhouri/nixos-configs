@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, user, location, nixos-hardware, home-manager, nur, ...}:
+{ lib, inputs, nixpkgs, user, location, nixos-hardware, home-manager, nur, overlay-unstable, ...}:
 
 let
   system = "x86_64-linux";                             	    # System architecture
@@ -16,6 +16,8 @@ in
     inherit system;
     specialArgs = { inherit inputs user nixos-hardware nur; };
     modules = [
+      # Importing packages from multiple channels
+      ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
       ./p14s
       ./configuration.nix
       home-manager.nixosModules.home-manager

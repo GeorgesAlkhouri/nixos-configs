@@ -33,6 +33,8 @@
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = user;
   
+  services.fstrim.enable = true;
+  
   nixpkgs.overlays = [ nur.overlay ];
 
   environment.systemPackages = with pkgs; [
@@ -45,7 +47,8 @@
     virtualenv
     python38Packages.virtualenvwrapper
     owncloud-client
-  ];
+    
+  ] ++ [pkgs.unstable.libsForQt5.kalendar];
 }
 
 

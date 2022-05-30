@@ -11,8 +11,8 @@
         EMACS="$HOME/.emacs.d"
         if [ ! -d "$EMACS" ]; then
           git clone https://github.com/GeorgesAlkhouri/.emacs.d.git
+          cd "$EMACS" && make tangle
         fi
-        # make -f "$EMACS/Makefile" tangle
       '';
     };
   };
@@ -30,17 +30,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    ((emacsPackagesNgGen emacsNativeComp).emacsWithPackages(
-      epkgs: [ epkgs.vterm ]
-    ))
-    # silver-searcher
     ripgrep
     shellcheck
     hunspell
     hunspellDicts.en_US-large
-    # cmake
-    # libvterm
-    # libtool
     rnix-lsp
     emacs-all-the-icons-fonts
   ];              

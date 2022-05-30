@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, user, ... }:
+{ config, pkgs, nixos-hardware, user, nur, ... }:
 
 {
   imports =  [
@@ -32,17 +32,19 @@
 
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = user;
+  
+  nixpkgs.overlays = [ nur.overlay ];
 
   environment.systemPackages = with pkgs; [
     vim 
-    firefox
-    git
-    gitflow
     gnumake
     signal-desktop
     element-desktop
     virtualbox
     python38
+    virtualenv
+    python38Packages.virtualenvwrapper
+    owncloud-client
   ];
 }
 

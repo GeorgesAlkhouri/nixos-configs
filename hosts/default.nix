@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, user, location, nixos-hardware, ... }:
+{ lib, inputs, nixpkgs, user, location, nixos-hardware, home-manager, ...}:
 
 let
   system = "x86_64-linux";                             	    # System architecture
@@ -18,15 +18,14 @@ in
     modules = [
       ./p14s
       ./configuration.nix
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.${user} = import ./p14s/home.nix;
+        home-manager.extraSpecialArgs = { inherit user; };
+      }
     ];
   };
 
-  vm = lib.nixosSystem {                                    # VM profile
-    inherit system;
-    specialArgs = { inherit inputs user location; };
-    modules = [
-      ./vm
-      ./configuration.nix
-    ];
-  };
 }

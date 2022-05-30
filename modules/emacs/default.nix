@@ -20,7 +20,7 @@
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-      sha256 = "1vcnfwki3g2a1m1z3czwzmg6wq120jiy3qa4vbri466q74gbw5id";
+      sha256 = "02c4kmik140bbw85yvz82z82p19p0hv0hpn3dhv46g8i4kqjfqz0";
     }))
   ];
 
@@ -30,14 +30,17 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    emacsNativeComp
-    silver-searcher
+    ((emacsPackagesNgGen emacsNativeComp).emacsWithPackages(
+      epkgs: [ epkgs.vterm ]
+    ))
+    # silver-searcher
+    ripgrep
     shellcheck
     hunspell
     hunspellDicts.en_US-large
-    cmake
-    libvterm
-    libtool
+    # cmake
+    # libvterm
+    # libtool
     rnix-lsp
     emacs-all-the-icons-fonts
   ];              

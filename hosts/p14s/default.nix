@@ -41,8 +41,9 @@
     gnumake
     signal-desktop
     element-desktop
+    virtualbox
+    python38
   ];
-
 }
 
 

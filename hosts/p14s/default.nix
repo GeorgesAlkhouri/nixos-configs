@@ -1,11 +1,12 @@
 { config, pkgs, nixos-hardware, user, nur, ... }:
 
 {
+
   imports =  [
-     nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen2
     ./hardware-configuration.nix
     ../../modules/emacs
   ]; 
+
   boot.loader.systemd-boot.consoleMode = "max";
   boot.initrd.luks.devices = {
       enc-disk = {
@@ -24,6 +25,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  # services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
@@ -34,7 +36,7 @@
   services.xserver.displayManager.autoLogin.user = user;
   
   services.fstrim.enable = true;
-  
+  services.tlp.enable = true;
   nixpkgs.overlays = [ nur.overlay ];
 
   environment.systemPackages = with pkgs; [
@@ -48,6 +50,7 @@
     python38Packages.virtualenvwrapper
     owncloud-client
     ansible
+    clinfo
   ] ++ [
     pkgs.unstable.nodePackages.pyright
     pkgs.unstable.libsForQt5.kalendar

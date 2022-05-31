@@ -47,8 +47,12 @@
     virtualenv
     python38Packages.virtualenvwrapper
     owncloud-client
-    
-  ] ++ [pkgs.unstable.libsForQt5.kalendar];
+    ansible
+  ] ++ [
+    pkgs.unstable.nodePackages.pyright
+    pkgs.unstable.libsForQt5.kalendar
+  ];
+
 }
 
 

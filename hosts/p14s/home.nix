@@ -5,7 +5,7 @@
 
   home.username = user;
   home.homeDirectory = "/home/${user}";
-  home.stateVersion = "21.11";
+  home.stateVersion = "22.05";
 
   home.packages = [
     pkgs.git

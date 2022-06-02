@@ -51,9 +51,9 @@
     owncloud-client
     ansible
     clinfo
+    libsForQt5.kalendar
   ] ++ [
     pkgs.unstable.nodePackages.pyright
-    pkgs.unstable.libsForQt5.kalendar
   ];
 
 }

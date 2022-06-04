@@ -39,6 +39,11 @@
   services.tlp.enable = true;
   nixpkgs.overlays = [ nur.overlay ];
 
+
+  users.users.${user} = {       
+    extraGroups = [ "input" ]; # needed for libinput-gestures support
+  };
+
   environment.systemPackages = with pkgs; [
     vim 
     gnumake
@@ -52,6 +57,12 @@
     ansible
     clinfo
     libsForQt5.kalendar
+    #BEGIN libinput gestures support
+    libinput-gestures
+    wmctrl # simulates keyboard and mouse actions for Xorg or XWayland based apps
+    xdotool
+    #END libinput
+    firefox
   ] ++ [
     pkgs.unstable.nodePackages.pyright
   ];

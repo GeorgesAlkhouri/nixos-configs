@@ -28,10 +28,6 @@
     ];
   };
 
-  programs.firefox = {
-    enable = true;
-  };
-
   programs.bash = {
     enable = true;
     bashrcExtra = ''
@@ -41,4 +37,12 @@
     '';
   };
   
+  # auto start libinput-gestures
+  home.file.".config/autostart/libinput-gestures.desktop".source = ''${pkgs.libinput-gestures}/share/applications/libinput-gestures.desktop'';
+  # see https://github.com/bulletmark/libinput-gestures/blob/master/libinput-gestures.conf
+  home.file.".config/libinput-gestures.conf".text = ''
+   # gesture swipe up _internal ws_up
+   gesture swipe left 3	xdotool key alt+Right
+   gesture swipe right 3 xdotool key alt+Left
+  '';                                            
 }

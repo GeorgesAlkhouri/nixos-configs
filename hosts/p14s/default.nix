@@ -2,18 +2,18 @@
 
 {
 
-  imports =  [
+  imports = [
     ./hardware-configuration.nix
     ../../modules/emacs
-  ]; 
+  ];
 
   boot.loader.systemd-boot.consoleMode = "max";
   boot.initrd.luks.devices = {
-      enc-disk = {
-        device = "/dev/disk/by-label/enc-disk";
-        preLVM = true;
-        allowDiscards = true;
-      };
+    enc-disk = {
+      device = "/dev/disk/by-label/enc-disk";
+      preLVM = true;
+      allowDiscards = true;
+    };
   };
 
   # Enable sound.
@@ -45,13 +45,13 @@
   nixpkgs.overlays = [ nur.overlay ];
 
 
-  users.users.${user} = {       
+  users.users.${user} = {
     extraGroups = [ "input" ]; # needed for libinput-gestures support
   };
 
   environment.systemPackages = with pkgs; [
     libreoffice
-    vim 
+    vim
     gnumake
     signal-desktop
     element-desktop

@@ -15,7 +15,8 @@
   time.timeZone = "Europe/Berlin";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = { # Extra locale settings that need to be overwritten
+    extraLocaleSettings = {
+      # Extra locale settings that need to be overwritten
       LC_TIME = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
     };
@@ -27,9 +28,11 @@
   };
   security.sudo.wheelNeedsPassword = false;
 
-  nix = { # Nix Package Manager settings
+  nix = {
+    # Nix Package Manager settings
     autoOptimiseStore = true; # Optimise syslinks
-    gc = { # Automatic garbage collection
+    gc = {
+      # Automatic garbage collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";

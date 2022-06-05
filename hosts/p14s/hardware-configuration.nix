@@ -5,10 +5,10 @@
 
 {
   imports =
-    [ 
+    [
       (modulesPath + "/installer/scan/not-detected.nix")
-     # nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen2
-     # nixos-hardware.nixosModules.common-pc-laptop-acpi_call
+      # nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen2
+      # nixos-hardware.nixosModules.common-pc-laptop-acpi_call
     ];
 
   # Wifi support
@@ -18,13 +18,13 @@
     # rocm-opencl-runtime
     amdvlk
   ];
-   hardware.opengl.driSupport = true;
-   hardware.opengl.driSupport32Bit = true;
-   hardware.opengl.extraPackages32 = with pkgs; [
-     driversi686Linux.amdvlk
-   ];
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
 
-  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=none"];
+  boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=none" ];
   # Modules nvme: nvme ssd, xhci_pci: usb and pci, rtsx_pci_sdmmc: Realtek pci sdmmc card reader
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "rtsx_pci_sdmmc" ];
   # Modules dm-snapshot: https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/snapshot.html, snapshots for lvm
@@ -39,33 +39,37 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
+    {
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   fileSystems."/var" =
-    { device = "/dev/disk/by-label/var";
+    {
+      device = "/dev/disk/by-label/var";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
+    {
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-label/home";
+    {
+      device = "/dev/disk/by-label/home";
       fsType = "ext4";
     };
 
   fileSystems."/tmp" =
-    { device = "/dev/disk/by-label/tmp";
+    {
+      device = "/dev/disk/by-label/tmp";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+    [{ device = "/dev/disk/by-label/swap"; }];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display

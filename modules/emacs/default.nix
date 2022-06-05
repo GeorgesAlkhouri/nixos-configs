@@ -1,10 +1,9 @@
-
 { config, pkgs, ... }:
 
 {
   services.emacs.package = pkgs.emacsUnstable;
 
-  system.userActivationScripts = {                    
+  system.userActivationScripts = {
     emacs = {
       text = ''
         source ${config.system.build.setEnvironment}
@@ -36,5 +35,5 @@
     hunspellDicts.en_US-large
     rnix-lsp
     emacs-all-the-icons-fonts
-  ];              
+  ];
 }

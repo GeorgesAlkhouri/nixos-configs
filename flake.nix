@@ -13,8 +13,15 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, nur
-    , nixpkgs-unstable, ... }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , nixos-hardware
+    , home-manager
+    , nur
+    , nixpkgs-unstable
+    , ...
+    }:
     let
       user = "dev";
       location = "$HOME/.setup";
@@ -26,13 +33,17 @@
         #   config.allowUnfree = true;
         # };
       };
-    in {
-      nixosConfigurations = ( # NixOS configurations
-        import ./hosts { # Imports ./hosts/default.nix
+    in
+    {
+      nixosConfigurations = (
+        # NixOS configurations
+        import ./hosts {
+          # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs user location nixos-hardware home-manager nur
             overlay-unstable;
-        });
+        }
+      );
 
     };
 }

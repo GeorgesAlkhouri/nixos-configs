@@ -1,5 +1,14 @@
-{ lib, inputs, nixpkgs, user, location, nixos-hardware, home-manager, nur
-, overlay-unstable, ... }:
+{ lib
+, inputs
+, nixpkgs
+, user
+, location
+, nixos-hardware
+, home-manager
+, nur
+, overlay-unstable
+, ...
+}:
 
 let
   system = "x86_64-linux"; # System architecture
@@ -10,7 +19,8 @@ let
   };
 
   lib = nixpkgs.lib;
-in {
+in
+{
 
   p14s = lib.nixosSystem {
     inherit system;

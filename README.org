@@ -1,0 +1,9 @@
+* NixOS Configs
+
+** Hosts
+
+*** P14s Thinkapd
+
+**** Hibernation
+
+- To make hibernation work change the Sleep Mode Option in the energy BIOS panel from Windows to Linux

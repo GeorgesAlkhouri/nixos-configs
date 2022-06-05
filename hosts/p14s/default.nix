@@ -19,7 +19,7 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
+  hardware.bluetooth.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
@@ -34,9 +34,14 @@
 
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = user;
-  
+  services.fprintd.enable = true;
   services.fstrim.enable = true;
-  services.tlp.enable = true;
+
+
+  # services.tlp.enable = true;
+  # services.tlp.settings = {};
+  powerManagement.powertop.enable = true;
+
   nixpkgs.overlays = [ nur.overlay ];
 
 
@@ -45,6 +50,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    libreoffice
     vim 
     gnumake
     signal-desktop

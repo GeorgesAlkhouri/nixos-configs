@@ -5,7 +5,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-   
+
   networking.hostName = "nixos"; # Define your hostname.
   networking.useDHCP = false;
   networking.interfaces.enp5s0.useDHCP = true;
@@ -15,21 +15,21 @@
   time.timeZone = "Europe/Berlin";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {                 # Extra locale settings that need to be overwritten
+    extraLocaleSettings = { # Extra locale settings that need to be overwritten
       LC_TIME = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
     };
   };
 
-  users.users.${user} = {       
+  users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
   security.sudo.wheelNeedsPassword = false;
 
-  nix = {                                   # Nix Package Manager settings
-    autoOptimiseStore = true;           # Optimise syslinks
-    gc = {                                  # Automatic garbage collection
+  nix = { # Nix Package Manager settings
+    autoOptimiseStore = true; # Optimise syslinks
+    gc = { # Automatic garbage collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
@@ -40,6 +40,6 @@
       experimental-features = nix-command flakes
     '';
   };
-  nixpkgs.config.allowUnfree = true; 
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "22.05";
 }

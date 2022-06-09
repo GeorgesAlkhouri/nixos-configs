@@ -26,7 +26,7 @@
 
   boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=none" ];
   # Modules nvme: nvme ssd, xhci_pci: usb and pci, rtsx_pci_sdmmc: Realtek pci sdmmc card reader
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "rtsx_pci_sdmmc" "thinkpad_acpi" ];
   # Modules dm-snapshot: https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/snapshot.html, snapshots for lvm
   boot.initrd.kernelModules = [ "dm-snapshot" ];
 

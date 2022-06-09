@@ -33,7 +33,10 @@
     shellcheck
     hunspell
     hunspellDicts.en_US-large
-    rnix-lsp
+    rnix-lsp # nix language-server
     emacs-all-the-icons-fonts
+    nodePackages.yaml-language-server
+  ] ++ [
+    pkgs.unstable.nodePackages.pyright
   ];
 }

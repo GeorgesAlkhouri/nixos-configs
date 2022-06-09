@@ -44,5 +44,10 @@
     '';
   };
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "22.05";
+  system = {
+    autoUpgrade = {
+      enable = true;
+    };
+    stateVersion = "22.05";
+  };
 }

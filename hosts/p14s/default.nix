@@ -16,6 +16,11 @@
     };
   };
 
+  # Systemd
+  systemd.sleep.extraConfig = "HibernateDelaySec=20min";
+
+  # Monitor
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -26,7 +31,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   # services.xserver.videoDrivers = [ "amdgpu" ];
-
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -41,6 +45,7 @@
   # services.tlp.enable = true;
   # services.tlp.settings = {};
   powerManagement.powertop.enable = true;
+  services.upower.enable = true;
 
   nixpkgs.overlays = [ nur.overlay ];
 
@@ -63,14 +68,15 @@
     ansible
     clinfo
     libsForQt5.kalendar
+    tldr
+    powertop
     #BEGIN libinput gestures support
     libinput-gestures
     wmctrl # simulates keyboard and mouse actions for Xorg or XWayland based apps
     xdotool
     #END libinput
     firefox
-  ] ++ [
-    pkgs.unstable.nodePackages.pyright
+    autorandr
   ];
 
 }

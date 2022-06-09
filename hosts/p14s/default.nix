@@ -20,11 +20,31 @@
   systemd.sleep.extraConfig = "HibernateDelaySec=20min";
 
   # Monitor
+  # service.autorandr = {
+  #   enable = true;
+  #   hooks.postswitch = ''
+  #   echo "test" > /home/dev/autorand-test
+  #   '';
+  # };
+
+  security.rtkit.enable = true;
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true;
+  # Make bluetooth head phones work
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  hardware.bluetooth = {
+    enable = true;
+    settings.General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 

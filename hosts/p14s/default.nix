@@ -19,14 +19,6 @@
   # Systemd
   systemd.sleep.extraConfig = "HibernateDelaySec=20min";
 
-  # Monitor
-  # service.autorandr = {
-  #   enable = true;
-  #   hooks.postswitch = ''
-  #   echo "test" > /home/dev/autorand-test
-  #   '';
-  # };
-
   security.rtkit.enable = true;
 
   # Enable sound.
@@ -96,7 +88,6 @@
     xdotool
     #END libinput
     firefox
-    autorandr
   ];
 
 }

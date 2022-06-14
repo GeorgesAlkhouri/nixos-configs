@@ -62,22 +62,29 @@
   nixpkgs.overlays = [ nur.overlay ];
 
 
+  virtualisation = {
+    libvirtd.enable = true;
+    podman.enable = true;
+  };
+
+  programs.dconf.enable = true;
+
   users.users.${user} = {
-    extraGroups = [ "input" ]; # needed for libinput-gestures support
+    extraGroups = [ "input" "libvirtd" ]; # needed for libinput-gestures support
   };
 
   environment.systemPackages = with pkgs; [
+    virt-manager
+    vagrant
     libreoffice
     vim
     gnumake
     signal-desktop
     element-desktop
-    virtualbox
-    python38
-    virtualenv
-    python38Packages.virtualenvwrapper
+    # python39Full
+    # python39Packages.virtualenv
+    # python39Packages.virtualenvwrapper
     owncloud-client
-    ansible
     clinfo
     libsForQt5.kalendar
     tldr

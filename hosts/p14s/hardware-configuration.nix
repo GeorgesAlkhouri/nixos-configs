@@ -14,8 +14,8 @@
   # Wifi support
   hardware.firmware = [ pkgs.rtw89-firmware ];
   hardware.opengl.extraPackages = with pkgs; [
-    # rocm-opencl-icd
-    # rocm-opencl-runtime
+    rocm-opencl-icd
+    rocm-opencl-runtime
     amdvlk
   ];
   hardware.opengl.driSupport = true;
@@ -23,6 +23,13 @@
   hardware.opengl.extraPackages32 = with pkgs; [
     driversi686Linux.amdvlk
   ];
+
+  hardware.bluetooth = {
+    enable = true;
+    settings.General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
 
   boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=none" ];
   # Modules nvme: nvme ssd, xhci_pci: usb and pci, rtsx_pci_sdmmc: Realtek pci sdmmc card reader

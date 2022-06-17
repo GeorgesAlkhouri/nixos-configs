@@ -30,19 +30,13 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  hardware.bluetooth = {
-    enable = true;
-    settings.General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
-  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # services.xserver.videoDrivers = [ "amdgpu" ];
+
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -50,13 +44,14 @@
 
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = user;
-  services.fprintd.enable = true;
+  # fingerprint sensor
+  # services.fprintd.enable = true;
   services.fstrim.enable = true;
 
-
-  # services.tlp.enable = true;
+  # better power and battery management
+  services.tlp.enable = true;
   # services.tlp.settings = {};
-  powerManagement.powertop.enable = true;
+
   services.upower.enable = true;
 
   nixpkgs.overlays = [ nur.overlay ];
@@ -89,12 +84,15 @@
     libsForQt5.kalendar
     tldr
     powertop
+    tlp
     #BEGIN libinput gestures support
     libinput-gestures
     wmctrl # simulates keyboard and mouse actions for Xorg or XWayland based apps
     xdotool
     #END libinput
     firefox
+    # apple music player
+    cider
   ];
 
 }

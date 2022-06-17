@@ -30,9 +30,9 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      export WORKON_HOME=$HOME/.virtualenvs
-      export PROJECT_HOME=$HOME/Devel 
-      source virtualenvwrapper.sh
+      # export WORKON_HOME=$HOME/.virtualenvs
+      # export PROJECT_HOME=$HOME/Devel 
+      # source virtualenvwrapper.sh
     '';
   };
 

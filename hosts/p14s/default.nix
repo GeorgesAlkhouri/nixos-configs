@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/emacs
+    ../../modules/development
   ];
 
   boot.loader.systemd-boot.consoleMode = "max";

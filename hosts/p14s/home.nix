@@ -1,7 +1,10 @@
 { config, lib, pkgs, user, ... }:
 
 {
-
+  imports =
+    [
+      ../../modules/development/home.nix
+    ];
   home.username = user;
   home.homeDirectory = "/home/${user}";
   home.stateVersion = "22.05";
@@ -30,9 +33,9 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      export WORKON_HOME=$HOME/.virtualenvs
+      # export WORKON_HOME=$HOME/.virtualenvs
       export PROJECT_HOME=$HOME/Devel 
-      source virtualenvwrapper.sh
+      # source virtualenvwrapper.sh
     '';
   };
 

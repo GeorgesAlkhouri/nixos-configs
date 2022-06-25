@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, user, nur, ... }:
+{ config, pkgs, nixos-hardware, user, nur, agenix, ... }:
 
 {
 
@@ -59,13 +59,13 @@
 
   virtualisation = {
     libvirtd.enable = true;
-    podman.enable = true;
+    docker.enable = true;
   };
 
   programs.dconf.enable = true;
 
   users.users.${user} = {
-    extraGroups = [ "input" "libvirtd" ]; # needed for libinput-gestures support
+    extraGroups = [ "networkmanager" "input" "libvirtd" "docker"]; # needed for libinput-gestures support
   };
 
   environment.systemPackages = with pkgs; [
@@ -93,8 +93,10 @@
     firefox
     # apple music player
     cider
+    agenix.defaultPackage.x86_64-linux 
   ];
-
+  
+  age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
 }
 
 

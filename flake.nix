@@ -10,7 +10,10 @@
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,6 +23,7 @@
     , home-manager
     , nur
     , nixpkgs-unstable
+    , agenix
     , ...
     }:
     let
@@ -41,7 +45,7 @@
           # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs user location nixos-hardware home-manager nur
-            overlay-unstable;
+            overlay-unstable agenix;
         }
       );
 

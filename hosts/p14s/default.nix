@@ -65,7 +65,16 @@
   programs.dconf.enable = true;
 
   users.users.${user} = {
-    extraGroups = [ "networkmanager" "input" "libvirtd" "docker"]; # needed for libinput-gestures support
+    description = "Devvvv!";
+    #  should be the password in an encrypted from
+    #  use: `mkpasswd -m sha-512`
+    passwordFile = config.age.secrets."passwords/users/dev".path;
+    extraGroups = [ 
+      "networkmanager" 
+      "input" # needed for libinput-gestures support
+      "libvirtd"
+      "docker"
+    ]; 
   };
 
   environment.systemPackages = with pkgs; [
@@ -95,7 +104,11 @@
     cider
     agenix.defaultPackage.x86_64-linux 
   ];
-  
+
+
+  users.users.root.passwordFile = config.age.secrets."passwords/users/root".path;
+  age.secrets."passwords/users/dev".file = ../../secrets/passwords/users/dev.age;
+  age.secrets."passwords/users/root".file = ../../secrets/passwords/users/root.age;
   age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
 }
 

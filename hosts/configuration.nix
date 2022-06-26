@@ -26,19 +26,10 @@
   users.users.${user} = {
     uid = 1000;
     isNormalUser = true;
-    description = "Devvvv!";
     extraGroups = [ "wheel" ];
     createHome = true;
-    #  should be the password in an encrypted from
-    #  use: `mkpasswd -m sha-512`
-    passwordFile = config.age.secrets."passwords/users/dev".path;
     home = "/home/${user}";
   };
-
-  users.users.root.passwordFile = config.age.secrets."passwords/users/root".path;
-
-  age.secrets."passwords/users/dev".file = ../secrets/passwords/users/dev.age;
-  age.secrets."passwords/users/root".file = ../secrets/passwords/users/root.age;
   # security.pam.enableEcryptfs = true;
 
   security.sudo.wheelNeedsPassword = false;

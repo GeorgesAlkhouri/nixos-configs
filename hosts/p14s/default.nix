@@ -70,12 +70,12 @@
     #  should be the password in an encrypted from
     #  use: `mkpasswd -m sha-512`
     passwordFile = config.age.secrets."passwords/users/dev".path;
-    extraGroups = [ 
-      "networkmanager" 
+    extraGroups = [
+      "networkmanager"
       "input" # needed for libinput-gestures support
       "libvirtd"
       "docker"
-    ]; 
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -103,7 +103,7 @@
     firefox
     # apple music player
     cider
-    agenix.defaultPackage.x86_64-linux 
+    agenix.defaultPackage.x86_64-linux
   ];
 
 

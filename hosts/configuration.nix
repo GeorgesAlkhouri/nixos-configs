@@ -21,7 +21,7 @@
       LC_MONETARY = "de_DE.UTF-8";
     };
   };
-  
+
   users.mutableUsers = false;
   users.users.${user} = {
     uid = 1000;

@@ -21,11 +21,17 @@
       LC_MONETARY = "de_DE.UTF-8";
     };
   };
-
+  
+  users.mutableUsers = false;
   users.users.${user} = {
+    uid = 1000;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    createHome = true;
+    home = "/home/${user}";
   };
+  # security.pam.enableEcryptfs = true;
+
   security.sudo.wheelNeedsPassword = false;
 
   nix = {

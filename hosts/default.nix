@@ -7,6 +7,7 @@
 , home-manager
 , nur
 , overlay-unstable
+, agenix
 , ...
 }:
 
@@ -24,12 +25,13 @@ in
 
   p14s = lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit inputs user nixos-hardware nur; };
+    specialArgs = { inherit inputs user nixos-hardware nur agenix; };
     modules = [
       # Importing packages from multiple channels
       ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
       ./p14s
       ./configuration.nix
+      agenix.nixosModules.age
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;

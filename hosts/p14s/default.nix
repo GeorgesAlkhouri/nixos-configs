@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, user, nur, ... }:
+{ config, pkgs, nixos-hardware, user, nur, agenix, ... }:
 
 {
 
@@ -60,13 +60,22 @@
 
   virtualisation = {
     libvirtd.enable = true;
-    podman.enable = true;
+    docker.enable = true;
   };
 
   programs.dconf.enable = true;
 
   users.users.${user} = {
-    extraGroups = [ "input" "libvirtd" ]; # needed for libinput-gestures support
+    description = "Devvvv!";
+    #  should be the password in an encrypted from
+    #  use: `mkpasswd -m sha-512`
+    passwordFile = config.age.secrets."passwords/users/dev".path;
+    extraGroups = [ 
+      "networkmanager" 
+      "input" # needed for libinput-gestures support
+      "libvirtd"
+      "docker"
+    ]; 
   };
 
   environment.systemPackages = with pkgs; [
@@ -94,8 +103,18 @@
     firefox
     # apple music player
     cider
+    agenix.defaultPackage.x86_64-linux 
   ];
 
+
+  # make sure that boot is available on boot
+  # e.g. ssh keys for agenix decryption
+  fileSystems."/home".neededForBoot = true;
+
+  users.users.root.passwordFile = config.age.secrets."passwords/users/root".path;
+  age.secrets."passwords/users/dev".file = ../../secrets/passwords/users/dev.age;
+  age.secrets."passwords/users/root".file = ../../secrets/passwords/users/root.age;
+  age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
 }
 
 

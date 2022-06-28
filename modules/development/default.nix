@@ -3,9 +3,6 @@
 {
   services.lorri.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    direnv
-  ];
-
+  environment.systemPackages = with pkgs; [ direnv nixfmt ];
 
 }

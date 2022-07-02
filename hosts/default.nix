@@ -1,22 +1,10 @@
-{ lib
-, inputs
-, nixpkgs
-, user
-, location
-, home-manager
-, overlay-unstable
-, agenix
-, ...
-}:
+{ inputs, overlay-unstable }:
 
 let
+  inherit (inputs) home-manager nixpkgs agenix;
+
   system = "x86_64-linux"; # System architecture
-
-  pkgs = import nixpkgs {
-    inherit system;
-    # config.allowUnfree = true;                              # Allow proprietary software
-  };
-
+  user = "dev";
   lib = nixpkgs.lib;
 in
 {

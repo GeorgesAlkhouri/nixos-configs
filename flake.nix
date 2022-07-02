@@ -1,5 +1,5 @@
 {
-  description = "My Personal NixOS and Darwin System Flake Configuration";
+  description = "Rickety NixOS config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
@@ -14,11 +14,9 @@
     };
   };
 
-  outputs =
-    inputs@{ self, nixpkgs, home-manager, nixpkgs-unstable, agenix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, ... }:
     let
-      user = "dev";
-      location = "$HOME/.setup";
+
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
         # use this variant if unfree packages are needed:
@@ -29,15 +27,8 @@
       };
     in
     {
-      nixosConfigurations = (
-        # NixOS configurations
-        import ./hosts {
-          # Imports ./hosts/default.nix
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs user location home-manager overlay-unstable
-            agenix;
-        }
-      );
+      nixosConfigurations =
+        (import ./hosts { inherit inputs overlay-unstable; });
 
     };
 }

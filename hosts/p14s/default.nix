@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, user, nur, agenix, ... }:
+{ config, pkgs, user, agenix, ... }:
 
 {
 
@@ -51,11 +51,8 @@
 
   # better power and battery management
   services.tlp.enable = true;
-  # services.tlp.settings = {};
 
   services.upower.enable = true;
-
-  nixpkgs.overlays = [ nur.overlay ];
 
   virtualisation = {
     libvirtd.enable = true;

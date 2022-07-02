@@ -3,9 +3,7 @@
 , nixpkgs
 , user
 , location
-, nixos-hardware
 , home-manager
-, nur
 , overlay-unstable
 , agenix
 , ...
@@ -25,7 +23,7 @@ in
 
   p14s = lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit inputs user nixos-hardware nur agenix; };
+    specialArgs = { inherit inputs user agenix; };
     modules = [
       # Importing packages from multiple channels
       ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })

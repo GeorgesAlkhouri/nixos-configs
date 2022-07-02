@@ -57,7 +57,6 @@
 
   nixpkgs.overlays = [ nur.overlay ];
 
-
   virtualisation = {
     libvirtd.enable = true;
     docker.enable = true;
@@ -106,15 +105,18 @@
     agenix.defaultPackage.x86_64-linux
   ];
 
-
   # make sure that boot is available on boot
   # e.g. ssh keys for agenix decryption
   fileSystems."/home".neededForBoot = true;
 
-  users.users.root.passwordFile = config.age.secrets."passwords/users/root".path;
-  age.secrets."passwords/users/dev".file = ../../secrets/passwords/users/dev.age;
-  age.secrets."passwords/users/root".file = ../../secrets/passwords/users/root.age;
+  users.users.root.passwordFile =
+    config.age.secrets."passwords/users/root".path;
+  age.secrets."passwords/users/dev".file =
+    ../../secrets/passwords/users/dev.age;
+  age.secrets."passwords/users/root".file =
+    ../../secrets/passwords/users/root.age;
   age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
-}
 
+  programs.ssh.startAgent = true;
+}
 

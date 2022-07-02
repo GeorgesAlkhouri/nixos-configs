@@ -53,6 +53,9 @@
   system = {
     autoUpgrade = {
       enable = true;
+      dates = "daily";
+      flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+      flake = "github:GeorgesAlkhouri/nixos-configs";
     };
     stateVersion = "22.05";
   };

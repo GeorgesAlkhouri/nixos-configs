@@ -1,6 +1,8 @@
-{ config, lib, pkgs, inputs, user, location, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 
 {
+
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

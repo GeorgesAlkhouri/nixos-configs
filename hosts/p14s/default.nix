@@ -1,12 +1,21 @@
-{ config, pkgs, user, agenix, ... }:
+{ config, pkgs, inputs, user, agenix, ... }:
 
-{
+let inherit (inputs) home-manager;
+
+in {
 
   imports = [
     ./hardware-configuration.nix
     ../../modules/emacs
     ../../modules/development
   ];
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.${user} = import ./home.nix;
+    extraSpecialArgs = { inherit user; };
+  };
 
   boot.loader.systemd-boot.consoleMode = "max";
   boot.initrd.luks.devices = {

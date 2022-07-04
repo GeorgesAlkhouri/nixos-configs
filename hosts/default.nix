@@ -16,15 +16,8 @@ in
       # Importing packages from multiple channels
       ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
       ./p14s
-      ./configuration.nix
+      ./base.nix
       agenix.nixosModules.age
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${user} = import ./p14s/home.nix;
-        home-manager.extraSpecialArgs = { inherit user; };
-      }
     ];
   };
 

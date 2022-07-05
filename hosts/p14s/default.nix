@@ -1,6 +1,8 @@
-{ config, pkgs, nixos-hardware, user, nur, agenix, ... }:
+{ config, pkgs, inputs, user, agenix, ... }:
 
-{
+let inherit (inputs) home-manager;
+
+in {
 
   imports = [
     ./hardware-configuration.nix
@@ -8,6 +10,12 @@
   ];
 
   modules.editors.emacs.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.${user} = import ./home.nix;
+    extraSpecialArgs = { inherit user; };
+  };
 
   boot.loader.systemd-boot.consoleMode = "max";
   boot.initrd.luks.devices = {
@@ -52,11 +60,8 @@
 
   # better power and battery management
   services.tlp.enable = true;
-  # services.tlp.settings = {};
 
   services.upower.enable = true;
-
-  nixpkgs.overlays = [ nur.overlay ];
 
   virtualisation = {
     libvirtd.enable = true;
@@ -117,5 +122,7 @@
   age.secrets."passwords/users/root".file =
     ../../secrets/passwords/users/root.age;
   age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
+
+  programs.ssh.startAgent = true;
 }
 

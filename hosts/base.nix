@@ -1,8 +1,9 @@
-{ config, lib, pkgs, inputs, user, location, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 
 {
 
   imports = [
+    inputs.home-manager.nixosModules.home-manager
     ../modules/editors/emacs.nix
   ];
 
@@ -57,6 +58,9 @@
   system = {
     autoUpgrade = {
       enable = true;
+      dates = "daily";
+      flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+      flake = "github:GeorgesAlkhouri/nixos-configs";
     };
     stateVersion = "22.05";
   };

@@ -8,8 +8,11 @@
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.systemd-boot.configurationLimit = 10;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.useDHCP = false;
@@ -35,7 +38,6 @@
     createHome = true;
     home = "/home/${user}";
   };
-  # security.pam.enableEcryptfs = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -50,11 +52,9 @@
     };
     package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
     registry.nixpkgs.flake = inputs.nixpkgs;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    extraOptions = "experimental-features = nix-command flakes";
   };
-  nixpkgs.config.allowUnfree = true;
+
   system = {
     autoUpgrade = {
       enable = true;

@@ -22,14 +22,6 @@
     userEmail = "georges.alkhouri@gmail.com";
   };
 
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacsNativeComp;
-    extraPackages = epkgs: [
-      epkgs.vterm
-    ];
-  };
-
   programs.bash = {
     enable = true;
     bashrcExtra = ''

@@ -9,7 +9,7 @@ in {
     default = false;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
     environment.systemPackages = with pkgs;
       [

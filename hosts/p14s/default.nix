@@ -4,12 +4,14 @@ let inherit (inputs) home-manager;
 
 in {
 
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/development
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
-  modules.editors.emacs.enable = true;
+  modules = {
+    editors.emacs.enable = true;
+    development.enable = true;
+    development.python.enable = true;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

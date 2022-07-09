@@ -1,8 +1,26 @@
-{ config, pkgs, ... }:
+{ config, options, lib, pkgs, user, ... }:
 
-{
-  services.lorri.enable = true;
+with lib;
+let cfg = config.modules.development;
 
-  environment.systemPackages = with pkgs; [ direnv nixfmt ];
+in {
+  options.modules.development.enable = mkOption {
+    type = types.bool;
+    default = false;
+  };
+
+  config = mkIf cfg.enable {
+
+    home-manager.users.${user} = {
+      programs.bash = {
+        bashrcExtra = ''
+          eval "$(direnv hook bash)"
+        '';
+      };
+    };
+    services.lorri.enable = true;
+
+    environment.systemPackages = with pkgs; [ direnv nixfmt ];
+  };
 
 }

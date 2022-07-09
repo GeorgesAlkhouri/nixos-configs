@@ -1,10 +1,12 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ../modules/editors/emacs.nix
+    ../modules/development
+    ../modules/development/python.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

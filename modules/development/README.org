@@ -1,0 +1,18 @@
+* Development Module
+
+** Python Workflow
+
+General Python workflow would be to let lorri watch the nix configuration build by mach-nix.
+
+#+begin_src bash
+cd project
+
+# create nix shell config with mach-nix
+mach-nix env -p 3.8 -r requirements.txt env
+# create sym link 
+ln -s env/shell.nix shell.nix
+# let lorri watch
+lorri init
+direnv allow
+
+#+end_src

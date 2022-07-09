@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mach-nix = {
+      url = "github:DavHau/mach-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, ... }:

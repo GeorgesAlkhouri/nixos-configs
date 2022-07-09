@@ -32,7 +32,6 @@ in {
   security.rtkit.enable = true;
 
   # Enable sound.
-  sound.enable = true;
   # Make bluetooth head phones work
   services.pipewire = {
     enable = true;

@@ -38,7 +38,7 @@
   # kvm-amd: kernel based virtualization for amd, 
   # amdgpu: driver for radeon based gpus https://www.kernel.org/doc/html/v4.20/gpu/amdgpu.html
   # acpi_call: call  acpi methods (https://de.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
-  boot.kernelModules = [ "kvm-amd" "amdgpu" "acpi_call" ];
+  boot.kernelModules = [ "kvm-amd" "amdgpu" "acpi_call" "ecryptfs" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   fileSystems."/" = {
@@ -64,6 +64,20 @@
   fileSystems."/tmp" = {
     device = "/dev/disk/by-label/tmp";
     fsType = "ext4";
+  };
+
+  fileSystems."/home/dev/Desktop/enc" = {
+    neededForBoot = false;
+    device = "/home/dev/Desktop/enc";
+    fsType = "ecryptfs";
+    options = [
+      "ecryptfs_cipher=aes"
+      "ecryptfs_key_bytes=32"
+      "ecryptfs_sig=xxx"
+      "ecryptfs_passthrough=no"
+      "ecryptfs_enable_filename_crypto=yes"
+      "nofail"
+    ];
   };
 
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];

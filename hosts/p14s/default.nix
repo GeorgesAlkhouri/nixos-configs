@@ -108,6 +108,7 @@ in {
     # apple music player
     cider
     agenix.defaultPackage.x86_64-linux
+    ecryptfs
   ];
 
   # make sure that boot is available on boot
@@ -120,7 +121,9 @@ in {
     ../../secrets/passwords/users/dev.age;
   age.secrets."passwords/users/root".file =
     ../../secrets/passwords/users/root.age;
-  age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
+  age.identityPaths = [ "/etc/dotfiles/id_ed25519" ];
+
+  security.pam.enableEcryptfs = true;
 
   programs.ssh.startAgent = true;
 }

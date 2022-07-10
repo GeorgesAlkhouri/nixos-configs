@@ -53,8 +53,8 @@ in {
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.plasma5.useQtScaling = true;
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = user;
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = user;
   # fingerprint sensor
   # services.fprintd.enable = true;
   services.fstrim.enable = true;

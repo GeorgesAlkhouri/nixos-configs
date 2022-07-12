@@ -28,11 +28,19 @@ in {
     };
   };
 
-  # Systemd
+  # battery charge threshold 
+  # https://askubuntu.com/questions/34452/how-can-i-limit-battery-charging-to-80-capacity
+  # define lid close behavior
+  services.logind = {
+    lidSwitch = "suspend-then-hibernate";
+    lidSwitchDocked = "suspend-then-hibernate";
+  };
+  # let systemd put down host to hibernate after x min
   systemd.sleep.extraConfig = "HibernateDelaySec=20min";
 
   security.rtkit.enable = true;
 
+  hardware.pulseaudio.enable = false;
   # Enable sound.
   # Make bluetooth head phones work
   services.pipewire = {
@@ -45,22 +53,27 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.desktopManager.plasma5.useQtScaling = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
 
+  security.pam.services.gdm.enableKwallet = true;
+  services.xserver.displayManager.defaultSession = "gnome";
   # services.xserver.displayManager.autoLogin.enable = true;
   # services.xserver.displayManager.autoLogin.user = user;
+  services.xserver.desktopManager.gnome.enable = true;
+
   # fingerprint sensor
   # services.fprintd.enable = true;
   services.fstrim.enable = true;
 
   # better power and battery management
-  services.tlp.enable = true;
+  # TODO: check if should be used with gnome's internal power manager
+  # services.tlp.enable = true;
 
   services.upower.enable = true;
 
@@ -69,6 +82,7 @@ in {
     docker.enable = true;
   };
 
+  # enable gnome config
   programs.dconf.enable = true;
 
   users.users.${user} = {
@@ -78,39 +92,45 @@ in {
     passwordFile = config.age.secrets."passwords/users/dev".path;
     extraGroups = [
       "networkmanager"
-      "input" # needed for libinput-gestures support
+      # "input" # needed for libinput-gestures support
       "libvirtd"
       "docker"
     ];
   };
 
   environment.systemPackages = with pkgs; [
+    gnome.adwaita-icon-theme
+    gnomeExtensions.hibernate-status-button
     virt-manager
     vagrant
-    libreoffice
     vim
     gnumake
     signal-desktop
-    element-desktop
-    # python39Full
-    # python39Packages.virtualenv
-    # python39Packages.virtualenvwrapper
-    owncloud-client
+    element-desktop-wayland
     clinfo
-    libsForQt5.kalendar
     tldr
     powertop
-    tlp
+    # tlp
+
+    # TODO: re-enable browser gestures
     #BEGIN libinput gestures support
-    libinput-gestures
-    wmctrl # simulates keyboard and mouse actions for Xorg or XWayland based apps
-    xdotool
+    # libinput-gestures
+    # wmctrl # simulates keyboard and mouse actions for Xorg or XWayland based apps
+    # xdotool
     #END libinput
-    firefox
+    firefox-wayland
     # apple music player
-    cider
+    # cider
     agenix.defaultPackage.x86_64-linux
   ];
+
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome.epiphany
+    gnome.gnome-music
+    gnome.geary
+    gnome-photos
+    gnome-tour
+  ]);
 
   # make sure that boot is available on boot
   # e.g. ssh keys for agenix decryption

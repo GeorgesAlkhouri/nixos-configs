@@ -38,10 +38,9 @@ in {
       emacs = {
         text = ''
           source ${config.system.build.setEnvironment}
-          EMACS="$HOME/.emacs.d"
-          if [ ! -d "$EMACS" ]; then
-            git clone https://github.com/GeorgesAlkhouri/.emacs.d.git
-            cd "$EMACS" && make tangle
+          if [ ! -d "$XDG_CONFIG_HOME/emacs" ]; then
+            git clone https://github.com/GeorgesAlkhouri/.emacs.d.git $XDG_CONFIG_HOME/emacs
+            cd "$XDG_CONFIG_HOME/emacs" && make tangle
           fi
         '';
       };

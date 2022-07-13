@@ -4,6 +4,8 @@
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    ../modules/options.nix
+    ../modules/xdg.nix
     ../modules/editors/emacs.nix
     ../modules/development
     ../modules/development/python.nix

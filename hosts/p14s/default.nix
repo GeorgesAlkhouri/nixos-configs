@@ -127,6 +127,7 @@ in {
   environment.systemPackages = with pkgs; [
     gnome.adwaita-icon-theme
     gnomeExtensions.hibernate-status-button
+    gnomeExtensions.keyboard-backlight-slider
     virt-manager
     # vagrant
     vim

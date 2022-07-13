@@ -41,7 +41,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "multitasking";
+      last-panel = "background";
       window-state = mkTuple [ 980 640 ];
     };
 
@@ -65,10 +65,10 @@ with lib.hm.gvariant;
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///nix/store/c9syx5aik0mfi2aqkylmgly1jyp18k3p-simple-blue-2016-02-19/share/backgrounds/nixos/nix-wallpaper-simple-blue.png";
-      picture-uri-dark = "file:///nix/store/bdi6pyz8ykfvk5bsjlqgys9wxnhyvibm-simple-dark-gray-2016-02-19/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
-      primary-color = "#3a4ba0";
-      secondary-color = "#2f302f";
+      picture-uri = "file:///home/dev/.local/share/backgrounds/2022-07-13-20-59-24-Screenshot%20from%202022-07-13%2019-56-42.png";
+      picture-uri-dark = "file:///home/dev/.local/share/backgrounds/2022-07-13-20-59-24-Screenshot%20from%202022-07-13%2019-56-42.png";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
     };
 
     "org/gnome/desktop/input-sources" = {
@@ -124,9 +124,9 @@ with lib.hm.gvariant;
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///nix/store/c9syx5aik0mfi2aqkylmgly1jyp18k3p-simple-blue-2016-02-19/share/backgrounds/nixos/nix-wallpaper-simple-blue.png";
-      primary-color = "#3a4ba0";
-      secondary-color = "#2f302f";
+      picture-uri = "file:///home/dev/.local/share/backgrounds/2022-07-13-20-59-24-Screenshot%20from%202022-07-13%2019-56-42.png";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
     };
 
     "org/gnome/desktop/search-providers" = {
@@ -136,6 +136,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 300;
+    };
+
+    "org/gnome/eog/ui" = {
+      sidebar = true;
     };
 
     "org/gnome/eog/view" = {
@@ -202,7 +206,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = [ "hibernate-status@dromi" ];
+      enabled-extensions = [ "hibernate-status@dromi" "keyboard-backlight-menu@ophir.dev" ];
       favorite-apps = [ "org.gnome.Calendar.desktop" "org.gnome.Nautilus.desktop" "emacs.desktop" "firefox.desktop" ];
       welcome-dialog-last-shown-version = "42.3.1";
     };
@@ -236,6 +240,21 @@ with lib.hm.gvariant;
       sort-order = "ascending";
       type-format = "category";
       window-size = mkTuple [ 888 327 ];
+    };
+
+    "org/gtk/settings/file-chooser" = {
+      date-format = "regular";
+      location-mode = "path-bar";
+      show-hidden = false;
+      show-size-column = true;
+      show-type-column = true;
+      sidebar-width = 157;
+      sort-column = "name";
+      sort-directories-first = false;
+      sort-order = "ascending";
+      type-format = "category";
+      window-position = mkTuple [ 26 23 ];
+      window-size = mkTuple [ 1367 902 ];
     };
 
     "org/virt-manager/virt-manager" = {

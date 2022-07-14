@@ -4,22 +4,31 @@ with lib;
 let cfg = config.modules.editors.emacs;
 
 in {
-  options.modules.editors.emacs.enable = mkOption {
-    type = types.bool;
-    default = false;
+  options.modules.editors.emacs = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+    usePgtk = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
     environment.systemPackages = with pkgs;
       [
-        ## Emacs itself
         binutils # native-comp needs 'as', provided by this
-        # 29 + native-comp
-        # TODO: make configurable if pgtk or not
-        ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages
-          (epkgs: [ epkgs.vterm ]))
-
+        ## Emacs itself
+        (
+          let
+            emacsPackage =
+              (if cfg.usePgtk then emacsPgtkNativeComp else emacsNativeComp);
+          in
+          ((emacsPackagesFor emacsPackage).emacsWithPackages
+            (epkgs: [ epkgs.vterm ]))
+        )
         git
         gnutls # for tls
         # other dependencies

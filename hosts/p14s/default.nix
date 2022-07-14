@@ -8,6 +8,7 @@ in {
 
   modules = {
     editors.emacs.enable = true;
+    editors.emacs.usePgtk = true;
     development.enable = true;
     development.python.enable = true;
   };

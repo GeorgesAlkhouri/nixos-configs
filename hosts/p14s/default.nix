@@ -168,10 +168,6 @@ in {
     gnome-tour
   ];
 
-  # make sure that boot is available on boot
-  # e.g. ssh keys for agenix decryption
-  fileSystems."/home".neededForBoot = true;
-
   users.users.root.passwordFile =
     config.age.secrets."passwords/users/root".path;
   age.secrets."passwords/users/dev".file =

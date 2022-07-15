@@ -45,6 +45,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
 
   fileSystems."/" = {
+    neededForBoot = true;
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };

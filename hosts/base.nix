@@ -1,7 +1,9 @@
-{ pkgs, inputs, user, ... }:
-
 {
-
+  pkgs,
+  inputs,
+  user,
+  ...
+}: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ../modules/options.nix
@@ -20,8 +22,6 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.useDHCP = false;
-  networking.interfaces.enp5s0.useDHCP = true;
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -38,7 +38,7 @@
   users.users.${user} = {
     uid = 1000;
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     createHome = true;
     home = "/home/${user}";
   };
@@ -63,9 +63,12 @@
     autoUpgrade = {
       enable = true;
       dates = "daily";
-      flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+      flags = ["--update-input" "nixpkgs" "--commit-lock-file"];
       flake = "github:GeorgesAlkhouri/nixos-configs";
     };
     stateVersion = "22.05";
   };
+
+  # base packages
+  environment.systemPackages = with pkgs; [vim gnumake git];
 }

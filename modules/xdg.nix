@@ -2,10 +2,14 @@
 #
 # Set up and enforce XDG compliance. Other modules will take care of their own,
 # but this takes care of the general cases.
-# Taken from 
+# Taken from
 # https://github.com/hlissner/dotfiles/blob/master/modules/xdg.nix
-
-{ config, home-manager, user, ... }: {
+{
+  config,
+  home-manager,
+  user,
+  ...
+}: {
   ### A tidy $HOME is a tidy mind
   home-manager.users.${user}.xdg.enable = true;
 

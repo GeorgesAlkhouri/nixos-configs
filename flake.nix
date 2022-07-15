@@ -22,24 +22,24 @@
       url = "github:DavHau/mach-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, ... }:
-    let
-
-      overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
-        # use this variant if unfree packages are needed:
-        # unstable = import nixpkgs-unstable {
-        #   inherit system;
-        #   config.allowUnfree = true;
-        # };
-      };
-    in
-    {
-      nixosConfigurations =
-        (import ./hosts { inherit inputs overlay-unstable; });
-
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    ...
+  }: let
+    overlay-unstable = final: prev: {
+      unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+      # use this variant if unfree packages are needed:
+      # unstable = import nixpkgs-unstable {
+      #   inherit system;
+      #   config.allowUnfree = true;
+      # };
     };
+  in {
+    nixosConfigurations =
+      import ./hosts {inherit inputs overlay-unstable;};
+  };
 }

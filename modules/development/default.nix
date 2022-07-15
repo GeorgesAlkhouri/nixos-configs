@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, user, ... }:
-
-with lib;
-let cfg = config.modules.development;
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.modules.development;
 in {
   options.modules.development.enable = mkOption {
     type = types.bool;
@@ -10,7 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-
     home-manager.users.${user} = {
       programs.bash = {
         bashrcExtra = ''
@@ -20,7 +24,6 @@ in {
     };
     services.lorri.enable = true;
 
-    environment.systemPackages = with pkgs; [ direnv nixfmt ];
+    environment.systemPackages = with pkgs; [direnv pkgs.unstable.alejandra];
   };
-
 }

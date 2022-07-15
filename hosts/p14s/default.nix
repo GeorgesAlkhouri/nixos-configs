@@ -1,10 +1,14 @@
-{ config, pkgs, inputs, user, agenix, ... }:
-
-let inherit (inputs) home-manager;
-
+{
+  config,
+  pkgs,
+  inputs,
+  user,
+  agenix,
+  ...
+}: let
+  inherit (inputs) home-manager;
 in {
-
-  imports = [ ./hardware-configuration.nix ];
+  imports = [./hardware-configuration.nix];
 
   modules = {
     editors.emacs.enable = true;
@@ -15,8 +19,7 @@ in {
 
   # TODO refactor
   home-manager.users.${user} = {
-
-    imports = [ ./dconf.nix ];
+    imports = [./dconf.nix];
 
     programs.home-manager.enable = true;
     programs.bash = {
@@ -46,6 +49,9 @@ in {
     # '';
   };
 
+  networking.interfaces.enp5s0.useDHCP = true;
+  networking.networkmanager.enable = true;
+
   boot.loader.systemd-boot.consoleMode = "max";
   boot.initrd.luks.devices = {
     enc-disk = {
@@ -55,7 +61,7 @@ in {
     };
   };
 
-  # battery charge threshold 
+  # battery charge threshold
   # https://askubuntu.com/questions/34452/how-can-i-limit-battery-charging-to-80-capacity
   # define lid close behavior
   services.logind = {
@@ -154,13 +160,13 @@ in {
     agenix.defaultPackage.x86_64-linux
   ];
 
-  environment.gnome.excludePackages = (with pkgs; [
+  environment.gnome.excludePackages = with pkgs; [
     gnome.epiphany
     gnome.gnome-music
     gnome.geary
     gnome-photos
     gnome-tour
-  ]);
+  ];
 
   # make sure that boot is available on boot
   # e.g. ssh keys for agenix decryption
@@ -174,8 +180,7 @@ in {
     ../../secrets/passwords/users/root.age;
 
   # TODO refactor
-  age.identityPaths = [ "/etc/dotfiles/id_ed25519" ];
+  age.identityPaths = ["/etc/dotfiles/id_ed25519"];
 
   programs.ssh.startAgent = true;
 }
-

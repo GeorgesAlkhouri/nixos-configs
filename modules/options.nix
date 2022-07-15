@@ -1,28 +1,31 @@
 # user.nix
-
 # add base config for a user
 # taken from https://github.com/hlissner/dotfiles/blob/master/modules/options.nix
-
-{ config, options, lib, user, ... }:
-
+{
+  config,
+  options,
+  lib,
+  user,
+  ...
+}:
 with lib; {
   options = with types; {
     home = {
       file = mkOption {
         type = attrs;
-        default = { };
+        default = {};
         description = "Files to place directly in $HOME";
       };
 
       configFile = mkOption {
         type = attrs;
-        default = { };
+        default = {};
         description = "Files to place directly in $XDG_CONFIG_HOME";
       };
 
       dataFile = mkOption {
         type = attrs;
-        default = { };
+        default = {};
         description = "Files to place directly in $XDG_DATA_HOME";
       };
     };

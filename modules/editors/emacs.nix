@@ -53,7 +53,7 @@ in {
     system.userActivationScripts.installMyEmacs = ''
       source ${config.system.build.setEnvironment}
       if [ ! -d "$XDG_CONFIG_HOME/emacs" ]; then
-        git clone https://github.com/GeorgesAlkhouri/.emacs.d.git $XDG_CONFIG_HOME/emacs
+        git clone git@github.com:GeorgesAlkhouri/.emacs.d.git $XDG_CONFIG_HOME/emacs
         cd "$XDG_CONFIG_HOME/emacs" && make tangle
       fi
     '';

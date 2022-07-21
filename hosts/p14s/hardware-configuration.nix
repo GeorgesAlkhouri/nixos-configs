@@ -27,7 +27,11 @@
 
   hardware.bluetooth = {
     enable = true;
-    settings.General = {Enable = "Source,Sink,Media,Socket";};
+    settings = {
+      # Disable auto turn on
+      Policy = {AutoEnable = false;};
+      General = {Enable = "Source,Sink,Media,Socket";};
+    };
   };
 
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=none"];

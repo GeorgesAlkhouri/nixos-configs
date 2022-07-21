@@ -135,6 +135,9 @@ in {
     gnome.adwaita-icon-theme
     gnomeExtensions.hibernate-status-button
     gnomeExtensions.keyboard-backlight-slider
+    # currently there is a JS import issue
+    # https://gitlab.com/nailfarmer/gnome-shell-dim-on-battery-extension/-/merge_requests/12
+    # gnomeExtensions.dim-on-battery-power
     virt-manager
     # vagrant
     vim

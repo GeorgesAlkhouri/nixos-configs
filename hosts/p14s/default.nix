@@ -161,6 +161,7 @@ in {
     # apple music player
     # cider
     agenix.defaultPackage.x86_64-linux
+    nvd
   ];
 
   environment.gnome.excludePackages = with pkgs; [
